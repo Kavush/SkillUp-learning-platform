@@ -1,191 +1,260 @@
-# 🚀 SkillUp - Youth Empowerment Platform
+🚀 SkillUp – Youth Empowerment Learning Platform
 
-A comprehensive skill-building platform designed to help unemployed youth learn new skills and earn certifications, addressing **SDG 8: Decent Work and Economic Growth**.
+A modern skill-building web app designed to empower unemployed youth by giving them access to practical courses and digital skills — contributing directly to SDG 8: Decent Work and Economic Growth.
 
-![SkillUp Banner](https://via.placeholder.com/1200x300/6366f1/ffffff?text=SkillUp+-+Youth+Empowerment+Platform)
+🎯 Project Overview
 
-## 🎯 Project Overview
+SkillUp is a full-stack learning platform that helps youth gain employable skills through structured courses, progress tracking, and downloadable certificates.
+Built with a clean UI, responsive design, and scalable architecture.
 
-SkillUp is a web-based learning platform that provides free access to industry-relevant courses, helping unemployed youth develop marketable skills and improve their employability.
+🌟 Key Features
+📚 Course Library
 
-### Key Features
+6+ curated learning tracks across:
 
-- 📚 **Diverse Course Catalog** - 6+ skill tracks across Technology, Marketing, Business, Design, Soft Skills, and Finance
-- 📊 **Progress Tracking** - Real-time monitoring of learning progress with visual analytics
-- 🎯 **Interactive Learning** - Gamified module completion with sequential unlocking
-- 🏆 **Certificates** - Downloadable certificates upon course completion
-- 📱 **Responsive Design** - Works seamlessly on desktop, tablet, and mobile devices
-- 🎨 **Modern UI/UX** - Clean, intuitive interface built with Tailwind CSS
+Tech
 
-## 🛠️ Tech Stack
+Marketing
 
-- **Frontend Framework:** React 18
-- **Styling:** Tailwind CSS
-- **Icons:** Lucide React
-- **Build Tool:** Create React App
-- **State Management:** React Hooks (useState, useEffect)
+Business
 
-## 📦 Installation
+Design
 
-### Prerequisites
+Customer Service
 
-- Node.js (v14 or higher)
-- npm or yarn
+Finance
 
-### Setup Instructions
+📊 Progress Tracking
 
-1. **Clone the repository**
-```bash
-git clone https://github.com/yourusername/skillup-app.git
+Module-by-module progress
+
+Visual dashboards
+
+Course completion percentages
+
+🏆 Certificates
+
+Auto-generated certificates
+
+Personalized with learner name
+
+Downloadable as image/PDF
+
+🎨 Modern UI/UX
+
+Built with TailwindCSS
+
+Smooth animations
+
+Clean, responsive layout
+
+👤 User Management
+
+Registration & login
+
+Local persistence (saved in localStorage)
+
+Personal dashboard
+
+🛠️ Tech Stack
+Frontend
+
+React + Vite
+
+Tailwind CSS
+
+Lucide Icons
+
+Axios (API calls)
+
+Backend
+
+Node.js + Express
+
+Local JSON data (future upgrade: MongoDB)
+
+Build Tools
+
+Vite
+
+PostCSS
+
+ES Modules
+
+📦 Installation & Setup
+Prerequisites
+
+Node.js v16+
+
+Git
+
+🔧 Setup Instructions
+1️⃣ Clone the repository
+git clone https://github.com/Kavush/skillup-app.git
 cd skillup-app
-```
 
-2. **Install dependencies**
-```bash
+2️⃣ Install dependencies
 npm install
-```
 
-3. **Start the development server**
-```bash
-npm start
-```
+3️⃣ Start the backend
+cd backend
+npm install
+node server.js
 
-The app will open at [http://localhost:3000](http://localhost:3000)
+4️⃣ Start the frontend
 
-## 📂 Project Structure
+Open a second terminal:
+cd ..
+npm run dev
 
-```
+Site runs at:
+👉 http://localhost:5173/
+
+Backend runs at:
+👉 http://localhost:5000/
+
+📁 Project Structure
 skillup-app/
-├── public/
-│   ├── index.html          # Main HTML file
-│   ├── manifest.json       # PWA manifest
-│   └── favicon.ico         # App icon
+│
+├── backend/                    # Backend API
+│   ├── server.js               # Express server
+│   └── data/                   # Sample course/user data
+│
 ├── src/
 │   ├── components/
-│   │   ├── Header.jsx           # App header with user info
-│   │   ├── Navigation.jsx       # Tab navigation
-│   │   ├── CourseCard.jsx       # Individual course card
-│   │   ├── ProgressDashboard.jsx # Progress tracking view
-│   │   ├── CertificateCard.jsx  # Certificate display
-│   │   └── CourseModal.jsx      # Course detail modal
-│   ├── data/
-│   │   └── courses.js           # Course data
-│   ├── App.jsx             # Main application component
-│   ├── index.js            # React entry point
-│   └── index.css           # Global styles with Tailwind
-├── tailwind.config.js      # Tailwind configuration
-├── postcss.config.js       # PostCSS configuration
-├── package.json            # Dependencies and scripts
-└── README.md              # Project documentation
-```
+│   │   ├── Header.jsx
+│   │   ├── CourseCard.jsx
+│   │   ├── CourseModal.jsx
+│   │   ├── CertificateCard.jsx
+│   │   ├── ProgressDashboard.jsx
+│   │   └── Navigation.jsx
+│   │
+│   ├── services/               # API layer (axios)
+│   │   ├── courseService.js
+│   │   └── userService.js
+│   │
+│   ├── App.jsx                 # Main app logic
+│   ├── main.jsx                # Entry point
+│   └── index.css               # Tailwind imports
+│
+├── vite.config.js
+├── postcss.config.cjs
+├── package.json
+└── README.md
 
-## 🎓 Available Courses
+🎓 Available Courses
 
-1. **Web Development Fundamentals** - HTML, CSS, JavaScript (8 weeks, 12 modules)
-2. **Digital Marketing Essentials** - SEO, Social Media, Content Marketing (6 weeks, 10 modules)
-3. **Data Analysis with Excel** - Excel, Data Visualization, Analytics (5 weeks, 8 modules)
-4. **Graphic Design Basics** - Canva, Color Theory, Typography (7 weeks, 11 modules)
-5. **Customer Service Excellence** - Communication, Problem Solving, Empathy (4 weeks, 6 modules)
-6. **Financial Literacy** - Budgeting, Investing, Money Management (6 weeks, 9 modules)
+Web Development Basics
 
-## 🚀 Usage
+Digital Marketing
 
-### Getting Started
+Data Analysis (Excel)
 
-1. **Register** - Enter your name on the welcome screen
-2. **Browse Courses** - Explore available courses in different categories
-3. **Start Learning** - Click "Start Course" to begin
-4. **Complete Modules** - Progress through modules sequentially
-5. **Earn Certificates** - Download your certificate upon completion
+Graphic Design (Canva)
 
-### Features in Detail
+Customer Service
 
-#### Course Progress
-- Track completion percentage for each course
-- Visual progress bars with color-coded indicators
-- Module-by-module completion tracking
+Financial Literacy
 
-#### Certificates
-- Personalized certificates with your name
-- Professional design matching course themes
-- Downloadable for sharing with employers
+Each course includes:
 
-#### Dashboard
-- Overview of all started and completed courses
-- Overall progress statistics
-- Quick access to continue learning
+Duration
 
-## 🎨 Customization
+Modules
 
-### Adding New Courses
+Skills you’ll gain
 
-Edit `src/data/courses.js`:
+Description
 
-```javascript
+Icon + theme color
+
+🚀 How to Use
+1️⃣ Register
+
+Enter your details to create your learner profile.
+
+2️⃣ Browse Courses
+
+Explore a variety of skill tracks.
+
+3️⃣ Start Learning
+
+Click any course to open its modules.
+
+4️⃣ Track Progress
+
+Your progress is saved automatically.
+
+5️⃣ Earn Certificates
+
+Download a personalized certificate once the course is complete.
+
+🎨 Customization
+➕ Add a new course
+
+Edit:
+src/data/courses.js (or backend data file depending on your version)
 {
   id: 7,
-  title: "Your Course Title",
-  category: "Category",
-  duration: "X weeks",
-  level: "Beginner" | "Intermediate",
-  modules: 10,
-  skills: ["Skill 1", "Skill 2", "Skill 3"],
-  description: "Course description",
-  icon: "🎯",
-  color: "from-blue-500 to-cyan-500"
+  title: "New Skill Course",
+  duration: "4 weeks",
+  modules: 8,
+  icon: "🚀",
+  skills: ["Skill 1", "Skill 2"],
+  color: "from-blue-500 to-teal-500",
+  description: "Course description…"
 }
-```
 
-### Changing Colors
+📱 Responsive Design
 
-Modify Tailwind gradient colors in the course data or component styles.
+Optimized for:
+✔ Mobile
+✔ Tablet
+✔ Desktop
+✔ Large screens
 
-## 📱 Responsive Design
+🤝 Contributing
 
-The app is fully responsive and optimized for:
-- 📱 Mobile devices (320px+)
-- 📱 Tablets (768px+)
-- 💻 Desktops (1024px+)
-- 🖥️ Large screens (1280px+)
+Fork repository
 
-## 🤝 Contributing
+Create a feature branch
 
-Contributions are welcome! Please follow these steps:
+Commit changes
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Push branch
 
-## 📄 License
+Open a Pull Request
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+Example:
+git checkout -b feature/new-feature
+git commit -m "Added new feature"
+git push origin feature/new-feature
 
-## 🌟 Acknowledgments
+📄 License
 
-- Built for addressing **UN SDG 8: Decent Work and Economic Growth**
-- Designed to empower unemployed youth through accessible education
-- Created as a bootcamp finale project demonstrating modern web development skills
+Licensed under the MIT License.
 
-## 📧 Contact
+📧 Contact
 
-For questions or support, please reach out:
-- Email: support@skillup.com
-- GitHub: [@Kavush](https://github.com/Kavush)
+GitHub: @Kavush
 
-## 🎯 Future Enhancements
+Email: support@skillup.com
 
-- [ ] User authentication and profiles
-- [ ] Backend API integration
-- [ ] Video course content
-- [ ] Discussion forums
-- [ ] Peer-to-peer learning
-- [ ] Job board integration
-- [ ] Mobile app (React Native)
-- [ ] Multi-language support
-- [ ] Offline mode (PWA)
+🌟 Future Roadmap
 
----
+ Full authentication system
 
-**Made with ❤️ for youth empowerment and SDG 8**
+ MongoDB integration
+
+ Video lessons
+
+ Discussion forums
+
+ Mobile app (React Native)
+
+ Offline mode (PWA)
+
+ AI-powered learning assistant
+
+Empowering Youth. Building Skills. Creating Opportunity.
+Made with ❤️ for SDG 8 – Decent Work & Economic Growth.
