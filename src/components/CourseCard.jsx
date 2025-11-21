@@ -29,7 +29,7 @@ const CourseCard = ({ course, progress, isCompleted, onStart, onContinue }) => {
           </div>
 
           <div className="flex items-center text-sm text-gray-600">
-            <Target size={16} className="mr-1" />
+            <Target size={16} className="mr-1" />q
             {course.modules} modules
           </div>
         </div>

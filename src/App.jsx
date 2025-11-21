@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Award, BookOpen, TrendingUp, CheckCircle, Play, Download, Video, FileText, Eye, EyeOff, Mail, Phone, Lock } from 'lucide-react';
-import { courses, courseQuizzes } from './data/courses.js';
+import { coursesAPI, authAPI } from './services/api';
 
 function App() {
   const [userData, setUserData] = useState({
@@ -22,7 +22,446 @@ function App() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  // courses data as fallback
+  const fallbackCourses = [
+    {
+      id: 1,
+      title: "Web Development Fundamentals",
+      description: "Learn HTML, CSS, and JavaScript to build modern websites",
+      duration: "6 weeks",
+      level: "Beginner",
+      modules: 12,
+      category: "Technology",
+      image: "🌐",
+      videos: 8,
+      quizzes: 5,
+      notes: true
+    },
+    {
+      id: 2,
+      title: "Digital Marketing Mastery",
+      description: "Master social media, SEO, and content marketing strategies",
+      duration: "4 weeks",
+      level: "Beginner",
+      modules: 8,
+      category: "Marketing",
+      image: "📱",
+      videos: 6,
+      quizzes: 5,
+      notes: true
+    },
+    {
+      id: 3,
+      title: "Graphic Design Principles",
+      description: "Learn design fundamentals and tools like Figma and Canva",
+      duration: "5 weeks",
+      level: "Intermediate",
+      modules: 10,
+      category: "Design",
+      image: "🎨",
+      videos: 7,
+      quizzes: 5,
+      notes: true
+    },
+      {
+    id: 4,
+    title: "Data Analysis Basics",
+    description: "Introduction to data analysis with Excel and basic statistics",
+    duration: "6 weeks",
+    level: "Intermediate",
+    modules: 12,
+    category: "Business",
+    image: "📊",
+    videos: 8,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 5,
+    title: "Mobile App Development",
+    description: "Build cross-platform apps with React Native",
+    duration: "8 weeks",
+    level: "Advanced",
+    modules: 16,
+    category: "Technology",
+    image: "📱",
+    videos: 10,
+    quizzes: 5,
+    notes: true
+     },
+  {
+    id: 7,
+    title: "AI & Machine Learning",
+    description: "Introduction to artificial intelligence and ML concepts",
+    duration: "8 weeks",
+    level: "Intermediate",
+    modules: 14,
+    category: "Technology",
+    image: "🤖",
+    videos: 10,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 8,
+    title: "Cybersecurity Fundamentals",
+    description: "Learn essential cybersecurity principles and practices",
+    duration: "6 weeks",
+    level: "Beginner",
+    modules: 10,
+    category: "Security",
+    image: "🔒",
+    videos: 7,
+    quizzes: 5,
+  },
+  {
+    id: 6,
+    title: "Entrepreneurship 101",
+    description: "Learn how to start and grow your own business",
+    duration: "4 weeks",
+    level: "Beginner",
+    modules: 8,
+    category: "Business",
+    image: "💼",
+    videos: 5,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 9,
+    title: "Python Programming",
+    description: "Learn Python from basics to advanced concepts",
+    duration: "7 weeks",
+    level: "Beginner",
+    modules: 14,
+    category: "Programming",
+    image: "🐍",
+    videos: 9,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 10,
+    title: "UI/UX Design",
+    description: "Master user interface and user experience design",
+    duration: "6 weeks",
+    level: "Intermediate",
+    modules: 12,
+    category: "Design",
+    image: "🎯",
+    videos: 8,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 11,
+    title: "Cloud Computing",
+    description: "Introduction to AWS, Azure, and Google Cloud",
+    duration: "5 weeks",
+    level: "Intermediate",
+    modules: 10,
+    category: "Technology",
+    image: "☁️",
+    videos: 7,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 12,
+    title: "Financial Literacy",
+    description: "Learn budgeting, investing, and personal finance",
+    duration: "4 weeks",
+    level: "Beginner",
+    modules: 8,
+    category: "Finance",
+    image: "💰",
+    videos: 6,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 13,
+    title: "Content Writing",
+    description: "Master the art of compelling content creation",
+    duration: "4 weeks",
+    level: "Beginner",
+    modules: 8,
+    category: "Writing",
+    image: "✍️",
+    videos: 5,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 14,
+    title: "Project Management",
+    description: "Learn Agile, Scrum, and project management tools",
+    duration: "6 weeks",
+    level: "Intermediate",
+    modules: 12,
+    category: "Business",
+    image: "📋",
+    videos: 8,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 15,
+    title: "Data Science",
+    description: "Introduction to data science and analytics",
+    duration: "8 weeks",
+    level: "Advanced",
+    modules: 16,
+    category: "Technology",
+    image: "🔬",
+    videos: 10,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 16,
+    title: "Photography Basics",
+    description: "Learn camera settings, composition, and editing",
+    duration: "5 weeks",
+    level: "Beginner",
+    modules: 10,
+    category: "Creative",
+    image: "📷",
+    videos: 7,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 17,
+    title: "Public Speaking",
+    description: "Master communication and presentation skills",
+    duration: "4 weeks",
+    level: "Beginner",
+    modules: 8,
+    category: "Communication",
+    image: "🎤",
+    videos: 6,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 18,
+    title: "Blockchain Technology",
+    description: "Understanding blockchain and cryptocurrencies",
+    duration: "6 weeks",
+    level: "Intermediate",
+    modules: 12,
+    category: "Technology",
+    image: "⛓️",
+    videos: 8,
+    quizzes: 5,
+    notes: true
+  },
+  {
+    id: 19,
+    title: "Social Media Management",
+    description: "Learn to manage and grow social media presence",
+    duration: "4 weeks",
+    level: "Beginner",
+    modules: 8,
+    category: "Marketing",
+    image: "📢",
+    videos: 6,
+    quizzes: 5,
+    notes: true
+  },
+  {
+     id: 20,
+    title: "Video Editing",
+    description: "Master video editing with professional tools",
+    duration: "6 weeks",
+    level: "Intermediate",
+    modules: 12,
+    category: "Creative",
+    image: "🎬",
+    videos: 8,
+    quizzes: 5,
+    notes: true
+  }
+  ];
+
+  // course quizzes
+  const courseQuizzes = {
+    1: [
+      {
+        id: 1,
+        question: "What does HTML stand for?",
+        options: [
+          "Hyper Text Markup Language",
+          "High Tech Modern Language", 
+          "Hyper Transfer Markup Language",
+          "Home Tool Markup Language"
+        ],
+        correct: 0
+      }
+    ],
+    2: [
+      {
+        id: 1,
+        question: "What does SEO stand for?",
+        options: [
+          "Search Engine Optimization",
+          "Social Engagement Outreach",
+          "Systematic Evaluation Operation",
+          "Search Enhancement Operation"
+        ],
+        correct: 0
+      }
+    ],
+    3: [
+      {
+        id: 1,
+        question: "What is the rule of thirds in design?",
+        options: [
+          "A composition guideline",
+          "A color theory principle",
+          "A typography rule",
+          "A software feature"
+        ],
+        correct: 0
+      }
+    ],
+    4: [
+    {
+      id: 1,
+      question: "What is the primary function of Excel?",
+      options: [
+        "Word processing",
+        "Data analysis and calculation",
+        "Graphic design",
+        "Web development"
+      ],
+      correct: 1
+    }
+  ],
+  5: [
+    {
+      id: 1,
+      question: "What is React Native used for?",
+      options: [
+        "Web development",
+        "Mobile app development",
+        "Desktop applications",
+        "Game development"
+      ],
+      correct: 1
+        }
+  ],
+  6: [
+    {
+      id: 1,
+      question: "What is a business plan?",
+      options: [
+        "A financial document only",
+        "A roadmap for business success",
+        "A marketing strategy",
+        "A legal requirement"
+      ],
+      correct: 1
+    }
+  ],
+  7: [
+    {
+      id: 1,
+      question: "What is Machine Learning?",
+      options: [
+        "Computers learning without explicit programming",
+        "A type of computer hardware",
+        "A programming language",
+            "A database management system"
+      ],
+      correct: 0
+    }
+  ],
+  8: [
+    {
+      id: 1,
+      question: "What is phishing?",
+      options: [
+        "A fishing technique",
+        "A type of cyber attack using deceptive emails",
+        "A network protocol",
+        "A programming language"
+      ],
+      correct: 1
+    }
+  ],
+  9: [
+    {
+      id: 1,
+      question: "What is Python primarily used for?",
+      options: [
+        "Web development and data science",
+        "Graphic design",
+         "Network configuration",
+        "Hardware programming"
+      ],
+      correct: 0
+    }
+  ],
+  10: [
+    {
+      id: 1,
+      question: "What is the primary focus of UI/UX design?",
+      options: [
+        "User satisfaction",
+        "Code efficiency",
+        "Server performance",
+        "Database design"
+      ],
+      correct: 0
+    }
+  ],
+
+  };
+
+  // Fetch courses from backend
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        setLoading(true);
+        const response = await coursesAPI.getAll();
+        console.log('Full API response:', response);
+      console.log('Courses from backend:', response.data.courses);
+      
+          setCourses(fallbackCourses);
+        
+  } catch (error) {
+    console.error('Failed to fetch courses:', error);
+    setCourses(fallbackCourses);
+  } finally {
+    setLoading(false);
+  }
+};
+
+fetchCourses();
+  }, []);
+
+useEffect(() => {
+    const token = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    
+    if (token && savedUser) {
+      try {
+        const user = JSON.parse(savedUser);
+        setCurrentUser(user);
+        setIsRegistered(true);
+      } catch (error) {
+        console.error('Error parsing saved user:', error);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      }
+    }
+  }, []);
+    
   const handleInputChange = (field, value) => {
     setUserData(prev => ({
       ...prev,
@@ -33,23 +472,15 @@ function App() {
   const validateForm = () => {
     const { firstName, lastName, email, phone, password, confirmPassword } = userData;
     
-    if (!firstName.trim() || !lastName.trim()) {
-      alert('Please enter your first and last name');
-      return false;
-    }
-    
-    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-      alert('Please enter a valid email address');
-      return false;
-    }
+    if (!isLogin) {
+      if (!firstName.trim() || !lastName.trim()) {
+        alert('Please enter your first and last name');
+        return false;
+      }
+      
     
     if (!phone.match(/^[\+]?[1-9][\d]{0,15}$/)) {
       alert('Please enter a valid phone number');
-      return false;
-    }
-    
-    if (password.length < 6) {
-      alert('Password must be at least 6 characters long');
       return false;
     }
     
@@ -57,20 +488,68 @@ function App() {
       alert('Passwords do not match');
       return false;
     }
-    
+  }
+
+  if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+      alert('Please enter a valid email address');
+      return false;
+    }
+
+    if (password.length < 6) {
+      alert('Password must be at least 6 characters long');
+      return false;
+    }
+     
     return true;
+    
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      const user = {
-        id: Date.now(),
-        ...userData,
-        joinedDate: new Date().toISOString()
-      };
+      try {
+const response = await authAPI.register(userData);
+localStorage.setItem('token', response.data.token);
       
-      localStorage.setItem('skillup_user', JSON.stringify(user));
+      const user = response.data.user || response.data.data || response.data;
+        
+        if (!user.firstName && userData.firstName) {
+          user.firstName = userData.firstName;
+        }
+        if (!user.lastName && userData.lastName) {
+          user.lastName = userData.lastName;
+        }
+        
+        localStorage.setItem('user', JSON.stringify(user));
+        setCurrentUser(user);
+        setIsRegistered(true);
+
+        setUserData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          phone: '',
+          password: '',
+          confirmPassword: ''
+        });
+      
+      } catch (error) {
+        alert (error.response?.data?.error || 'Registration failed');
+      }
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const { email, password } = userData;
+    
+    try {
+      const response = await authAPI.login({ email, password });
+      localStorage.setItem('token', response.data.token);
+     
+      const user = response.data.user || response.data.data || response.data;
+      localStorage.setItem('user', JSON.stringify(user));
+      
       setCurrentUser(user);
       setIsRegistered(true);
       
@@ -82,32 +561,9 @@ function App() {
         password: '',
         confirmPassword: ''
       });
-    }
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const { email, password } = userData;
-    
-    const storedUser = localStorage.getItem('skillup_user');
-    if (storedUser) {
-      const user = JSON.parse(storedUser);
-      if (user.email === email && user.password === password) {
-        setCurrentUser(user);
-        setIsRegistered(true);
-        setUserData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          password: '',
-          confirmPassword: ''
-        });
-      } else {
-        alert('Invalid email or password');
-      }
-    } else {
-      alert('No account found. Please register first.');
+      
+    } catch (error) {
+      alert(error.response?.data?.error || 'Login failed');
     }
   };
 
@@ -117,6 +573,8 @@ function App() {
     setIsLogin(false);
     setUserProgress({});
     setCompletedCourses([]);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
   const startCourse = (courseId) => {
@@ -158,6 +616,7 @@ function App() {
     }
   };
 
+  // CourseModal Component
   const CourseModal = ({ course, onClose }) => {
     const [currentModule, setCurrentModule] = useState(1);
     const progress = userProgress[course.id] || 0;
@@ -219,7 +678,7 @@ function App() {
             <div className="space-y-4">
               <h4 className="font-semibold text-lg">Knowledge Check</h4>
               {courseQuizzes[course.id]?.map((quiz, index) => (
-                <div key={quiz.id} className="bg-white border border-gray-200 rounded-lg p-4">
+                <div key={quiz.id || index} className="bg-white border border-gray-200 rounded-lg p-4">
                   <h5 className="font-medium mb-3">Q{index + 1}: {quiz.question}</h5>
                   <button 
                     onClick={() => takeQuiz(course.id, index)}
@@ -363,18 +822,10 @@ function App() {
   };
 
   // REGISTRATION/LOGIN INTERFACE
-  if (!isRegistered) {
+  if (!isRegistered || !currentUser) {
     return (
-      <div 
-        className="min-h-screen flex items-center justify-center p-6"
-        style={{
-          backgroundImage: 'url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
-        }}
-      >
-        <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 max-w-md w-full border border-white/20">
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 to-purple-50">
+        <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full border border-gray-100">
           <div className="text-center mb-8">
             <h1 className="text-5xl font-bold text-gray-800 mb-4">SkillUp</h1>
             <p className="text-xl text-gray-600 font-light">Empowering Youth Through Skills</p>
@@ -430,7 +881,6 @@ function App() {
                 </div>
               </div>
             )}
-
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
@@ -566,7 +1016,7 @@ function App() {
   // MAIN APP INTERFACE AFTER LOGIN
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
+    <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -576,7 +1026,7 @@ function App() {
               <div>
                 <h1 className="text-xl font-bold text-gray-900">SkillUp</h1>
                 <p className="text-sm text-gray-600">
-                  Welcome, {currentUser?.firstName} {currentUser?.lastName}!
+                  Welcome, {currentUser?.firstName || currentUser?.name || 'User'} {currentUser?.lastName || ''}!
                 </p>
               </div>
             </div>
@@ -641,7 +1091,7 @@ function App() {
                 const isCompleted = completedCourses.includes(course.id);
                 
                 return (
-                  <div key={course.id} className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition">
+                  <div key={course.id || course._id} className="bg-white rounded-xl shadow-sm p-6 hover:shadow-md transition">
                     <div className="flex items-center justify-between mb-4">
                       <div className="text-4xl">{course.image}</div>
                       {isCompleted && (
@@ -718,7 +1168,7 @@ function App() {
               {courses.map(course => {
                 const progress = userProgress[course.id] || 0;
                 return (
-                  <div key={course.id} className="bg-white rounded-xl shadow-sm p-6">
+                  <div key={course.id || course._id} className="bg-white rounded-xl shadow-sm p-6">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-4">
                         <div className="text-3xl">{course.image}</div>
@@ -790,15 +1240,14 @@ function App() {
         )}
       </main>
 
-            {selectedCourse && (
-              <CourseModal 
-                course={selectedCourse}
-                onClose={() => setSelectedCourse(null)}
-              />
-            )}
-      
-          </div>
-        );
-      }
-      
-      export default App;
+      {selectedCourse && (
+        <CourseModal 
+          course={selectedCourse}
+          onClose={() => setSelectedCourse(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+export default App;
