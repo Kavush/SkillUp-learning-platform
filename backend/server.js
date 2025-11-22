@@ -48,9 +48,9 @@ app.use('/api/auth', auth);
 console.log('✅ All routes mounted successfully');
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
-  console.log(`🎉 SERVER WORKING on http://localhost:${PORT}`);
+  console.log(`🎉 SERVER WORKING on port ${PORT}`);
   console.log(`🔗 Health: http://localhost:${PORT}/api/health`);
   console.log(`📚 Courses: http://localhost:${PORT}/api/courses`);
   console.log(`🔐 Auth Test: http://localhost:${PORT}/api/auth/test`);
