@@ -8,12 +8,22 @@ const app = express();
 // ===== Middleware: CORS =====
 const allowedOrigins = [
   'https://skillup-learning-platform.netlify.app', // Production frontend
-  'http://localhost:5173', // Local dev frontend
+  'http://localhost:5173' // Local dev
 ];
+
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true,
+  origin: function(origin, callback){
+    // allow requests with no origin like mobile apps or curl
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) === -1){
+      const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true
 }));
+
 
 // Parse JSON
 app.use(express.json());
@@ -43,7 +53,7 @@ app.use('/api/auth', auth);
 console.log('✅ All routes mounted successfully');
 
 // ===== Start Server =====
-const PORT = process.env.PORT || 5000; // Railway sets process.env.PORT
+const PORT = process.env.PORT || 5000; 
 app.listen(PORT, () => {
   console.log(`🎉 SERVER WORKING on port ${PORT}`);
   console.log(`🔗 Health: /api/health`);
