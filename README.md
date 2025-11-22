@@ -221,8 +221,8 @@ npm run dev
 
 ➕ Customization
 
-Add a new course: Edit src/data/courses.js or backend data file:
-{
+- Add a new course: Edit src/data/courses.js or backend data file:
+```{
   id: 7,
   title: "New Skill Course",
   duration: "4 weeks",
@@ -232,7 +232,7 @@ Add a new course: Edit src/data/courses.js or backend data file:
   color: "from-blue-500 to-teal-500",
   description: "Course description…"
 }
-
+```
 📱 Responsive Design
 
 Optimized for:
