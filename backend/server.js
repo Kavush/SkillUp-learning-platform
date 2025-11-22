@@ -5,10 +5,17 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
+// Middleware: CORS
+const allowedOrigins = [
+  'https://skillup-learning-platform.netlify.app', // Production frontend
+  'http://localhost:5173' // Local dev 
+];
+
 app.use(cors({
-origin: "https://skillup-learning-platform.netlify.app"
+  origin: allowedOrigins,
+  credentials: true
 }));
+
 app.use(express.json());
 
 // Health check
