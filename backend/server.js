@@ -13,10 +13,13 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // Allow non-browser tools (e.g., Postman)
-    if (allowedOrigins.includes(origin)) return callback(null, true);
-    callback(new Error('CORS not allowed for this origin'));
+  origin: function(origin, callback){
+    if(!origin) return callback(null, true); // allow non-browser requests like Postman
+    if(allowedOrigins.indexOf(origin) !== -1){
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
   },
   credentials: true
 }));
