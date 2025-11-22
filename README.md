@@ -1,32 +1,47 @@
 🚀 SkillUp – Youth Empowerment Learning Platform
 
-A modern skill-building web app designed to empower unemployed youth by giving them access to practical courses and digital skills — contributing directly to SDG 8: Decent Work and Economic Growth.
+A modern full-stack learning platform designed to empower unemployed youth by giving access to practical courses and digital skills — contributing to SDG 8: Decent Work and Economic Growth.
 
 🎯 Project Overview
 
-SkillUp is a full-stack learning platform that helps youth gain employable skills through structured courses, progress tracking, and downloadable certificates.
-Built with a clean UI, responsive design, and scalable architecture.
+SkillUp helps youth gain employable skills through structured courses, progress tracking, and downloadable certificates. Built with a clean UI, responsive design, and scalable architecture.
 
 🌟 Key Features
+
 📚 Course Library
+20 curated learning tracks across:
 
-6+ curated learning tracks across:
+Technology: Web Development, Mobile App Development, AI & Machine Learning, Python Programming, Cloud Computing, Blockchain Technology, Data Science
 
-Tech
+Marketing: Digital Marketing Mastery, Social Media Management
 
-Marketing
+Design: Graphic Design Principles, UI/UX Design
 
-Business
+Business: Data Analysis Basics, Entrepreneurship 101, Project Management
 
-Design
+Finance: Financial Literacy
 
-Customer Service
+Creative: Photography Basics, Video Editing
 
-Finance
+Communication & Writing: Public Speaking, Content Writing
+
+Security: Cybersecurity Fundamentals
+
+Each course includes:
+
+✅ Modules (4–16 depending on the course)
+
+✅ Videos (5–10)
+
+✅ Quizzes
+
+✅ Notes (where applicable)
+
+📄 Duration & Level
 
 📊 Progress Tracking
 
-Module-by-module progress
+Module-by-module tracking
 
 Visual dashboards
 
@@ -40,55 +55,98 @@ Personalized with learner name
 
 Downloadable as image/PDF
 
+🎓 Available Courses
+
+Web Development Fundamentals – 12 modules, 8 videos, quizzes, notes
+
+Digital Marketing Mastery – 8 modules, 6 videos, quizzes, notes
+
+Graphic Design Principles – 10 modules, 7 videos, quizzes, notes
+
+Data Analysis Basics – 12 modules, 8 videos, quizzes, notes
+
+Mobile App Development – 16 modules, 10 videos, quizzes, notes
+
+Entrepreneurship 101 – 8 modules, 5 videos, quizzes, notes
+
+AI & Machine Learning – 14 modules, 10 videos, quizzes, notes
+
+Cybersecurity Fundamentals – 10 modules, 7 videos, quizzes
+
+Python Programming – 14 modules, 9 videos, quizzes, notes
+
+UI/UX Design – 12 modules, 8 videos, quizzes, notes
+
+Cloud Computing – 10 modules, 7 videos, quizzes, notes
+
+Financial Literacy – 8 modules, 6 videos, quizzes, notes
+
+Content Writing – 8 modules, 5 videos, quizzes, notes
+
+Project Management – 12 modules, 8 videos, quizzes, notes
+
+Data Science – 16 modules, 10 videos, quizzes, notes
+
+Photography Basics – 10 modules, 7 videos, quizzes, notes
+
+Public Speaking – 8 modules, 6 videos, quizzes, notes
+
+Blockchain Technology – 12 modules, 8 videos, quizzes, notes
+
+Social Media Management – 8 modules, 6 videos, quizzes, notes
+
+Video Editing – 12 modules, 8 videos, quizzes, notes
+
 🎨 Modern UI/UX
 
-Built with TailwindCSS
+- Built with TailwindCSS
 
-Smooth animations
+- Smooth animations
 
-Clean, responsive layout
+- Clean, responsive layout
 
 👤 User Management
 
-Registration & login
+- Registration & login
 
-Local persistence (saved in localStorage)
+- Local persistence (saved in localStorage)
 
-Personal dashboard
+- Personal dashboard
 
 🛠️ Tech Stack
-Frontend
+- Frontend
 
-React + Vite
+- React + Vite
 
-Tailwind CSS
+- Tailwind CSS
 
-Lucide Icons
+- Lucide Icons
 
-Axios (API calls)
+- Axios (API calls)
 
 Backend
 
-Node.js + Express
+- Node.js + Express
 
-Local JSON data (future upgrade: MongoDB)
+- Local JSON data (future upgrade: MongoDB)
 
-Build Tools
+- Build Tools
 
-Vite
+- Vite
 
-PostCSS
+- PostCSS
 
-ES Modules
+- ES Modules
 
 📦 Installation & Setup
 Prerequisites
 
-Node.js v16+
+- Node.js v16+
 
-Git
+- Git
 
-🔧 Setup Instructions
+Setup Instructions
+
 1️⃣ Clone the repository
 git clone https://github.com/Kavush/skillup-app.git
 cd skillup-app
@@ -102,98 +160,68 @@ npm install
 node server.js
 
 4️⃣ Start the frontend
-
 Open a second terminal:
 cd ..
 npm run dev
 
-Site runs at:
-👉 http://localhost:5173/
+- Frontend: http://localhost:5173/
 
-Backend runs at:
-👉 http://localhost:5000/
+- Backend: http://localhost:5000/
 
 📁 Project Structure
-skillup-app/
+```skillup-app/
+└── frontend/
+   ├── .env
+   ├── .gitignore
+   ├── index.html
+   ├── package.json
+   ├── package-lock.json
+   ├── postcss.config.cjs
+   ├── tailwind.config.js
+   ├── vite.config.js
+   ├── dist/
+   ├── public/
+   ├── src/
 │
-├── backend/                    # Backend API
-│   ├── server.js               # Express server
-│   └── data/                   # Sample course/user data
+└── backend/
+    ├── .env
+    ├── server.js
+    ├── debug-imports.js
+    ├── debug-route-creation.js
+    ├── debug-routes.js
+    ├── package.json
+    ├── package-lock.json
+    ├── railway.json
+    ├── server-inline.js
+    ├── test-fixed-auth.js
+    ├── test-model.js
+    ├── test-new-routes.js
+    ├── test-routes.js
+    │
+    ├── middleware/
+    ├── models/
+    ├── routes/
+    ├── services/
+    ├── scripts/
 │
-├── src/
-│   ├── components/
-│   │   ├── Header.jsx
-│   │   ├── CourseCard.jsx
-│   │   ├── CourseModal.jsx
-│   │   ├── CertificateCard.jsx
-│   │   ├── ProgressDashboard.jsx
-│   │   └── Navigation.jsx
-│   │
-│   ├── services/               # API layer (axios)
-│   │   ├── courseService.js
-│   │   └── userService.js
-│   │
-│   ├── App.jsx                 # Main app logic
-│   ├── main.jsx                # Entry point
-│   └── index.css               # Tailwind imports
-│
-├── vite.config.js
-├── postcss.config.cjs
-├── package.json
-└── README.md
+└──.env
+└──.gitignore
+└──site.webmanifest
+└──README.md
+```
 
-🎓 Available Courses
-
-Web Development Basics
-
-Digital Marketing
-
-Data Analysis (Excel)
-
-Graphic Design (Canva)
-
-Customer Service
-
-Financial Literacy
-
-Each course includes:
-
-Duration
-
-Modules
-
-Skills you’ll gain
-
-Description
-
-Icon + theme color
 
 🚀 How to Use
-1️⃣ Register
 
-Enter your details to create your learner profile.
+1️⃣ Register – Enter your details to create your learner profile.
+2️⃣ Browse Courses – Explore skill tracks.
+3️⃣ Start Learning – Click any course to open its modules.
+4️⃣ Track Progress – Progress is saved automatically.
+5️⃣ Earn Certificates – Download personalized certificates upon completion.
 
-2️⃣ Browse Courses
+➕ Customization
 
-Explore a variety of skill tracks.
-
-3️⃣ Start Learning
-
-Click any course to open its modules.
-
-4️⃣ Track Progress
-
-Your progress is saved automatically.
-
-5️⃣ Earn Certificates
-
-Download a personalized certificate once the course is complete.
-
-🎨 Customization
-➕ Add a new course
-
-Edit:
-src/data/courses.js (or backend data file depending on your version)
+Add a new course: Edit src/data/courses.js or backend data file:
 {
   id: 7,
   title: "New Skill Course",
@@ -208,22 +236,26 @@ src/data/courses.js (or backend data file depending on your version)
 📱 Responsive Design
 
 Optimized for:
-✔ Mobile
-✔ Tablet
-✔ Desktop
-✔ Large screens
+
+- Mobile
+
+- Tablet
+
+- Desktop
+
+- Large screens
 
 🤝 Contributing
 
-Fork repository
+1. Fork the repository
 
-Create a feature branch
+2. Create a feature branch
 
-Commit changes
+3. Commit changes
 
-Push branch
+4. Push branch
 
-Open a Pull Request
+5. Open a Pull Request
 
 Example:
 git checkout -b feature/new-feature
@@ -236,25 +268,24 @@ Licensed under the MIT License.
 
 📧 Contact
 
-GitHub: @Kavush
+- GitHub: @Kavush
 
-Email: support@skillup.com
+- Email: alfredesther141@gmail.com 
 
 🌟 Future Roadmap
 
- Full authentication system
+- Full authentication system
 
- MongoDB integration
+- MongoDB integration
 
- Video lessons
+- Video lessons
 
- Discussion forums
+- Discussion forums
 
- Mobile app (React Native)
+- Mobile app (React Native)
 
- Offline mode (PWA)
+- Offline mode (PWA)
 
- AI-powered learning assistant
+AI-powered learning assistant
 
-Empowering Youth. Building Skills. Creating Opportunity.
-Made with ❤️ for SDG 8 – Decent Work & Economic Growth.
+Empowering Youth. Building Skills. Creating Opportunity. Made with ❤️ for SDG 8 – Decent Work & Economic Growth.
